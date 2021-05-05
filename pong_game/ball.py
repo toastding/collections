@@ -5,12 +5,15 @@ class Ball(Turtle):
     def __init__(self):
         super().__init__()
         self.shape("circle")
-        self.goto(0, 0)
         self.color("white")
+        self.penup()
+        self.x_move = 10
+        self.y_move = 10
 
     def move(self):
-        self.penup()
-        if self.xcor() != 300 and self.ycor() != 400:
-            new_x = self.xcor() + 10
-            new_y = self.ycor() + 10
-            self.goto(new_x, new_y)
+        new_x = self.xcor() + self.x_move
+        new_y = self.ycor() + self.y_move
+        self.goto(new_x, new_y)
+
+    def bounce(self):
+        self.y_move *= -1
