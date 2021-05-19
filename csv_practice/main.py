@@ -14,7 +14,7 @@
 
 import pandas
 
-data = pandas.read_csv("weather_data.csv")
+# data = pandas.read_csv("weather_data.csv")
 # print(data['temp'])
 # data_dict = data.to_dict()
 # print(data_dict)
@@ -36,10 +36,24 @@ data = pandas.read_csv("weather_data.csv")
 # print(int(monday.temp) * 1.8 + 32)
 
 # Create dataframe from scratch
-data_scratch = {
-    "students": ["Amy", "James", "Bob"],
-    "score": [94, 74, 89]
+# data_scratch = {
+#     "students": ["Amy", "James", "Bob"],
+#     "score": [94, 74, 89]
+# }
+#
+# data = pandas.DataFrame(data_scratch)
+# data.to_csv("new_data.csv")
+
+data = pandas.read_csv("Squirrel_Data.csv")
+# print(data_frame)
+grey_count = len(data[data["Primary Fur Color"] == 'Gray'])
+black_count = len(data[data["Primary Fur Color"] == 'Black'])
+red_count = len(data[data["Primary Fur Color"] == 'Cinnamon'])
+
+data_dict = {
+    "Fur Color": ["Gray", "Cinnamon", "Black"],
+    "Count": [grey_count, red_count, black_count]
 }
 
-data = pandas.DataFrame(data_scratch)
-data.to_csv("new_data.csv")
+# df = pandas.DataFrame(data_dict)
+# df.to_csv("Squirrel_count.csv")
