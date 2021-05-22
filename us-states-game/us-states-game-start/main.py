@@ -33,7 +33,6 @@ while len(guessed_states) < 50:
         t.write(state_data.state.item())
 
 
-
 # def get_mouse_click_coor(x, y):
 #     print(x, y)
 # turtle.onscreenclick(get_mouse_click_coor)
