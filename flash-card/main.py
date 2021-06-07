@@ -3,11 +3,17 @@ import pandas
 from random import choice
 
 BACKGROUND_COLOR = "#B1DDC6"
+current_card = {}
+to_learn = {}
 
 # read csv
-data = pandas.read_csv("data/french_words.csv")
-to_learn = data.to_dict('records')
-current_card = {}
+try:
+    data = pandas.read_csv("data/words_to_learn.csv")
+except FileNotFoundError:
+    original_data = pandas.read_csv("data/french_words.csv")
+    to_learn = original_data.to_dict(orient='records')
+else:
+    to_learn = data.to_dict(orient='records')
 
 
 # <-------------------------RANDOM FRENCH WORD-------------------------------->
@@ -28,7 +34,12 @@ def card_flip():
     canvas.itemconfig(card_word, fill="white", text=current_card["English"])
 
 
-# <-------------------------CHECK AND SAVE-------------------------------->
+# <-------------------------REMOVE THE CARD-------------------------------->
+def is_known():
+    to_learn.remove(current_card)
+    new_data = pandas.DataFrame(to_learn)
+    new_data.to_csv("data/words_to_learn.csv", index=False)
+    next_card()
 
 
 # window
@@ -53,8 +64,9 @@ wrong_btn = Button(image=cross_img, highlightthickness=0, command=next_card)
 wrong_btn.grid(column=0, row=1)
 
 check_img = PhotoImage(file="images/right.png")
-right_btn = Button(image=check_img, highlightthickness=0, command=next_card)
+right_btn = Button(image=check_img, highlightthickness=0, command=is_known)
 right_btn.grid(column=1, row=1)
+
 
 next_card()
 window.mainloop()
