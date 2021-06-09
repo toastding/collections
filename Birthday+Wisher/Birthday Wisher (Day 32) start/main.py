@@ -1,14 +1,22 @@
+import random
+import datetime
 import smtplib
 
-my_email = "shumingting0@gmail.com"
-password = "Star0258"
+MY_EMAIL = "shumingting0@gmail.com"
+MY_PASSWORD = "Star0258"
 
-with smtplib.SMTP("smtp.gmail.com") as connection:
-    connection.starttls()
-    connection.login(user=my_email, password=password)
-    connection.sendmail(
-        from_addr=my_email,
-        to_addrs="hifuggy@yahoo.com",
-        msg="Subject:Hello\n\nThis is the body of my email"
-    )
+now_week = datetime.datetime.now().weekday()
+if now_week == 0:
+    with open("quotes.txt") as file:
+        content = file.readlines()
+        print(content)
+        quote = random.choice(content)
 
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+        connection.sendmail(
+            from_addr=MY_EMAIL,
+            to_addrs="hifuggy@yahoo.com",
+            msg=f"Subject:Monday Motivation\n\n{quote}"
+        )
