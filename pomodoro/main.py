@@ -6,7 +6,7 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 25
+WORK_MIN = 1
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
@@ -27,7 +27,7 @@ def reset_timer():
 def start_timer():
     global reps
     reps += 1
-    work_sec = WORK_MIN * 60
+    work_sec = WORK_MIN * 10
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
 
@@ -55,7 +55,6 @@ def count_down(count):
 
     if count_sec < 10:
         count_sec = f"0{count_sec}"
-
 
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
     if count > 0:

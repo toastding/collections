@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 from random import choice, randint, shuffle
-import pyperclip
 import json
 
 
@@ -36,7 +35,7 @@ def generate_password():
 
     password = "".join(password_list)
     password_entry.insert(0, password)
-    pyperclip.copy(password)
+
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -117,3 +116,6 @@ search_btn = Button(text="Search", width=16, command=find_password)
 search_btn.grid(column=2, row=1)
 
 window.mainloop()
+
+
+
