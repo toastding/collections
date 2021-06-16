@@ -8,18 +8,10 @@ result = []
 final_result = []
 SEND_EMAIL = ''
 email_list = []
+i = 0
 
 
-# def merge_dict(dict1, dict2):
-#     dict3 = {**dict1, **dict2}
-#     for key, value in dict3.items():
-#         if key in dict1 and key in dict2:
-#             if dict1[key] == dict2[key]:
-#                 dict3[key] = value
-#             else:
-#                 dict3[key] = value, dict1[key]
-#     return dict3
-
+# compare two list then merge
 def merge_list(list1, list2):
     if list1[0] == list2[0]:
         if list2[2] == list1[2]:
@@ -33,9 +25,23 @@ def merge_list(list1, list2):
     return list2
 
 
+# check if two list name are the same
 def check_same(list1, list2):
     if list1[0] == list2[0]:
         return True
+
+
+# Swap function
+def swap_positions(list, pos1, pos2):
+    list[pos1], list[pos2] = list[pos2], list[pos1]
+    return list
+
+
+# remove element from dictionary
+def remove_key(d, key):
+    r = dict(d)
+    del r[key]
+    return r
 
 
 # open txt & apply to list
@@ -43,6 +49,12 @@ with open("通訊錄考題1.txt", mode="r", encoding="utf-8") as file:
     data = file.readlines()
     for i in data:
         list_split = i.split()
+        # check email empty
+        if len(list_split) < 4:
+            list_split.append('empty')
+            # check phone empty
+            if len(list_split[2]) > 12:
+                list_split = swap_positions(list_split, 2, 3)
         contact.append(list_split)
     new_contact = sorted(contact, key=lambda x: (x[0], x[2]))
 
@@ -62,7 +74,6 @@ with open("通訊錄考題1.txt", mode="r", encoding="utf-8") as file:
     list3 = [x for x in final_contact if x != []]
 
 # apply to dic
-
 with open('contact.txt', mode='w') as file:
     for i in list3:
         contact_dic = {
@@ -73,14 +84,15 @@ with open('contact.txt', mode='w') as file:
         }
         file.write(str(contact_dic) + '\n')
         # print(contact_dic)
-
         result.append(contact_dic)
-    # print(result)
+
 
 # -----------------------------------SMTP------------------------------------ #
+def send():
+    global SEND_EMAIL, email_list, i
     name = input("Enter the name: ").capitalize()
     for i in range(len(result)):
-        if result[i]['name'] == name:
+        if name == result[i]['name']:
             SEND_EMAIL = result[i]['email']
             email_list = SEND_EMAIL.split(',')
             for item in email_list:
@@ -93,35 +105,11 @@ with open('contact.txt', mode='w') as file:
                         to_addrs=SEND_EMAIL,
                         msg=f"Subject:Information\n\n{result[i]['name'], result[i]['gender'], result[i]['phone'], result[i]['email']}"
                     )
+    if name == 'Exit':
+        pass
+    else:
+        send()
 # -----------------------------------SMTP------------------------------------ #
 
 
-# a = [{'name': 'Ally', 'gender': 'F', 'phone': '0937-456-922', 'email': 'alpy@eastek.com.tw'},
-#      {'name': 'Ally', 'gender': 'F', 'phone': '0955-189-229', 'email': 'ally@eastek.com.tw'},
-#      {'name': 'Ally', 'gender': 'F', 'phone': '0951-189-229', 'email': 'alky@eastek.com.tw'},
-#      {'name': 'Ally', 'gender': 'F', 'phone': '0951-189-229', 'email': 'aley@eastek.com.tw'},
-#      {'name': 'Carl', 'gender': 'M', 'phone': '0926-296-207', 'email': 'carlyang@eastek.com.tw'}
-#      ]
-
-
-# for i in range(len(a) - 1):
-#     if a[i]['name'] == a[i + 1]['name']:
-#         final = merge_dict(a[i], a[i + 1])
-#     else:
-#         final_result.append(final)
-#         final_result.append(a[i+1])
-#
-#
-# print(final_result)
-
-# Concatenate Similar Key values
-# Using loop
-# for i in range(len(result) - 1):
-#     if result[i]['name'] == result[i + 1]['name']:
-#         final = merge_dict(result[i], result[i + 1])
-#         final_result.append(final)
-#     else:
-#         final_result.append(result[i+1])
-#
-#
-# print(final_result[0])
+send()
