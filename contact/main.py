@@ -32,16 +32,9 @@ def check_same(list1, list2):
 
 
 # Swap function
-def swap_positions(list, pos1, pos2):
-    list[pos1], list[pos2] = list[pos2], list[pos1]
-    return list
-
-
-# remove element from dictionary
-def remove_key(d, key):
-    r = dict(d)
-    del r[key]
-    return r
+# def swap_positions(list, pos1, pos2):
+#     list[pos1], list[pos2] = list[pos2], list[pos1]
+#     return list
 
 
 # open txt & apply to list
@@ -49,29 +42,31 @@ with open("通訊錄考題1.txt", mode="r", encoding="utf-8") as file:
     data = file.readlines()
     for i in data:
         list_split = i.split()
-        # check email empty
+        ''' check email empty
         if len(list_split) < 4:
             list_split.append('empty')
             # check phone empty
             if len(list_split[2]) > 12:
                 list_split = swap_positions(list_split, 2, 3)
+        '''
         contact.append(list_split)
-    new_contact = sorted(contact, key=lambda x: (x[0], x[2]))
+    new_contact = sorted(contact, key=lambda x: (x[1], x[0], x[2]))
 
 
 # merge different information
+    final_contact.append(new_contact[0])
     for i in range(len(new_contact)-1):
         final = merge_list(new_contact[i], new_contact[i+1])
-        # print(final)
         final_contact.append(final)
+    # print(final_contact)
 
 
 # remove duplicated information
     for i in range(len(final_contact)-1):
         if check_same(final_contact[i], final_contact[i+1]):
             final_contact[i].clear()
-
     list3 = [x for x in final_contact if x != []]
+
 
 # apply to dic
 with open('contact.txt', mode='w') as file:
@@ -83,7 +78,6 @@ with open('contact.txt', mode='w') as file:
             "email": i[3]
         }
         file.write(str(contact_dic) + '\n')
-        # print(contact_dic)
         result.append(contact_dic)
 
 
