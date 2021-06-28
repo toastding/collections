@@ -51,6 +51,7 @@ with open("通訊錄考題1.txt", mode="r", encoding="utf-8") as file:
         '''
         contact.append(list_split)
     new_contact = sorted(contact, key=lambda x: (x[1], x[0], x[2]))
+    # new_contact = sorted(new_contact, key=lambda x: x[1], reverse=True)
 
 
 # merge different information
