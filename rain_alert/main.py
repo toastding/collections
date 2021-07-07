@@ -4,10 +4,25 @@ OWH_Endpoint = "https://api.openweathermap.org/data/2.5/onecall"
 api_key = "678a48e8761ea1e358eed541ecc2e716"
 
 weather_params = {
-    'lat': 25.032969,
-    'lon': 121.565414,
-    'appid': api_key
+    'lat': 35.011635,
+    'lon': 135.768036,
+    'appid': api_key,
+    'exclude': "current,minutely,daily"
 }
 
 response = requests.get(OWH_Endpoint, params=weather_params)
-print(response.json())
+response.raise_for_status()
+weather_data = response.json()
+weather_slice = weather_data['hourly'][:13]
+
+will_rain = False
+for hour_data in weather_slice:
+    condition_code = hour_data['weather'][0]['id']
+    if int(condition_code) < 700:
+        will_rain = True
+
+if will_rain:
+    print("Bring an umbrella")
+
+# print(data['hourly'][0]['weather'][0]['id'])
+
