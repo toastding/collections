@@ -4,7 +4,7 @@ from twilio.rest import Client
 OWH_Endpoint = "https://api.openweathermap.org/data/2.5/onecall"
 api_key = "678a48e8761ea1e358eed541ecc2e716"
 account_sid = "ACe1ae4e388a1a7390b292e744d125d13f"
-auth_token = "e60bd08cfffc302ec92d1662e1f8acc3"
+auth_token = "cc19cc9ad842e61bcd100b5429efa52f"
 
 
 weather_params = {
@@ -34,4 +34,3 @@ if will_rain:
             to='+886978199305'
     )
     print(message.status)
-
