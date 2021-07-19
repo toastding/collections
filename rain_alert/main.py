@@ -8,8 +8,8 @@ auth_token = "cc19cc9ad842e61bcd100b5429efa52f"
 
 
 weather_params = {
-    'lat': 32.750286,
-    'lon': 129.877670,
+    'lat': 24.992901,
+    'lon': 121.300972,
     'appid': api_key,
     'exclude': "current,minutely,daily"
 }
