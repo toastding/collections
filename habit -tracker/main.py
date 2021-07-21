@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 USERNAME = "toastding"
 TOKEN = "gopadsadgre"
@@ -35,9 +36,11 @@ headers = {
 
 pixel_creation_endpoint = f"{pixel_endpoint}/{USERNAME}/graphs/{GRAPH_ID}"
 
+today = datetime(year=2021, month=7, day=21)
+
 pixel_data = {
-   "date": "20210720",
-   "quantity": "100"
+   "date": today.strftime("%Y%m%d"),
+   "quantity": "300"
 }
 
 response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
