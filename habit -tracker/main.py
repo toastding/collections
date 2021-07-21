@@ -36,12 +36,26 @@ headers = {
 
 pixel_creation_endpoint = f"{pixel_endpoint}/{USERNAME}/graphs/{GRAPH_ID}"
 
-today = datetime(year=2021, month=7, day=21)
+today = datetime.now()
 
 pixel_data = {
    "date": today.strftime("%Y%m%d"),
-   "quantity": "300"
+   "quantity": input("How many jump did you do today?: ")
 }
 
 response = requests.post(url=pixel_creation_endpoint, json=pixel_data, headers=headers)
 print(response.text)
+
+update_endpoint = f"{pixel_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{today.strftime('%Y%m%d')}"
+
+new_pixel_data = {
+    "quantity": "200",
+}
+
+# response = requests.put(url=update_endpoint, json=new_pixel_data, headers=headers)
+# print(response.text)
+
+delete_endpoint = f"{pixel_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{today.strftime('%Y%m%d')}"
+
+# response = requests.delete(url=delete_endpoint, headers=headers)
+# print(response.text)
